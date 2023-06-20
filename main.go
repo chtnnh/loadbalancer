@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"sync"
 )
 
 func main() {
@@ -11,6 +12,7 @@ func main() {
 	lb := Loadbalancer{
 		servers:       []string{"http://localhost:8001", "http://localhost:8002"},
 		currentServer: 0,
+		mux:           new(sync.RWMutex),
 	}
 
 	http.HandleFunc("/", lb.ServeHTTP)

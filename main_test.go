@@ -13,6 +13,7 @@ func TestRace(t *testing.T) {
 	lb := Loadbalancer{
 		servers:       []string{"http://localhost:8001", "http://localhost:8002"},
 		currentServer: 0,
+		mux:           new(sync.RWMutex),
 	}
 
 	server := httptest.NewServer(http.HandlerFunc(lb.ServeHTTP))
