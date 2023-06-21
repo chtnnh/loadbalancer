@@ -29,19 +29,19 @@ The `config.json` file looks something like this:
     {
       "host": "localhost",
       "port": 8001,
-      "weight": 0,
+      "weight": 1,
       "uri": "http://localhost:8001"
     },
     {
       "host": "localhost",
       "port": 8002,
-      "weight": 0,
+      "weight": 1,
       "uri": "http://localhost:8002"
     },
     {
       "host": "localhost",
       "port": 8003,
-      "weight": 0,
+      "weight": 1,
       "uri": "http://localhost:8003"
     }
   ],
@@ -50,8 +50,7 @@ The `config.json` file looks something like this:
 ```
 
 #### Protocols
-0: Round Robin
-1: Weighted Round Robin (WIP)
+0: Weighted Round Robin (Just specify weight = 1 to all servers for Round Robin)
 
 ### Testing
 To test the load balancer for race conditions:

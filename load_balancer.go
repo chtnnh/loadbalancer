@@ -22,5 +22,11 @@ func (lb *Loadbalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (lb *Loadbalancer) next() {
+	if lb.protocol == 0 {
+		lb.roundRobin()
+	}
+}
+
+func (lb *Loadbalancer) roundRobin() {
 	lb.currentServer = (lb.currentServer + 1) % len(lb.servers)
 }

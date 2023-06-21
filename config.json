@@ -7,19 +7,19 @@
     {
       "host": "localhost",
       "port": 8001,
-      "weight": 0,
+      "weight": 3,
       "uri": "http://localhost:8001"
     },
     {
       "host": "localhost",
       "port": 8002,
-      "weight": 0,
+      "weight": 2,
       "uri": "http://localhost:8002"
     },
     {
       "host": "localhost",
       "port": 8003,
-      "weight": 0,
+      "weight": 1,
       "uri": "http://localhost:8003"
     }
   ],

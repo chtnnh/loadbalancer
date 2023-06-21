@@ -48,5 +48,16 @@ func ReadConfig() *Config {
 		panic(fmt.Errorf("%w", err))
 	}
 
+	servers := []ServerURI{}
+	for _, server := range c.Servers {
+		if server.Weight < 1 {
+			panic(fmt.Errorf("server weight cannot be less than 1"))
+		}
+		for i := 0; i < server.Weight; i += 1 {
+			servers = append(servers, server)
+		}
+	}
+	c.Servers = servers
+
 	return c
 }
