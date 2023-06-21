@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"sync"
@@ -18,5 +19,5 @@ func main() {
 	}
 
 	http.HandleFunc("/", lb.ServeHTTP)
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", c.LB.Port), nil))
 }

@@ -45,11 +45,13 @@ The `config.json` file looks something like this:
       "uri": "http://localhost:8003"
     }
   ],
-  // 0: round robin, 1: weighted round robin (WIP)
   "protocol": 0
 }
-
 ```
+
+#### Protocols
+0: Round Robin
+1: Weighted Round Robin (WIP)
 
 ### Testing
 To test the load balancer for race conditions:
