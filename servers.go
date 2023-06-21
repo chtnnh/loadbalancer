@@ -5,10 +5,6 @@ import (
 	"net/http"
 )
 
-func (lb *Loadbalancer) next() {
-	lb.currentServer = (lb.currentServer + 1) % len(lb.servers)
-}
-
 type Server struct {
 	port int
 	s    *http.ServeMux

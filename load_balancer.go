@@ -20,3 +20,7 @@ func (lb *Loadbalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer lb.next()
 	io.Copy(w, res.Body)
 }
+
+func (lb *Loadbalancer) next() {
+	lb.currentServer = (lb.currentServer + 1) % len(lb.servers)
+}
