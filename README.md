@@ -29,13 +29,13 @@ The `config.json` file looks something like this:
     {
       "host": "localhost",
       "port": 8001,
-      "weight": 1,
+      "weight": 3,
       "uri": "http://localhost:8001"
     },
     {
       "host": "localhost",
       "port": 8002,
-      "weight": 1,
+      "weight": 2,
       "uri": "http://localhost:8002"
     },
     {
@@ -59,9 +59,8 @@ go test -race
 ```
 
 ## TODO
-1. Support for all methods (currently supports only GET)
-2. Support for dynamic URLs
-3. Dynamic Load Balancing algorithms
+1. Support for all methods (currently supports only GET & POST)
+2. Dynamic Load Balancing algorithms
 
 ## Author
 Chaitanya Mittal, 2023
