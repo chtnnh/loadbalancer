@@ -7,12 +7,14 @@ import (
 )
 
 func main() {
-	go InitServers()
+	c := ReadConfig()
+	InitServers(c)
 
 	lb := Loadbalancer{
-		servers:       []string{"http://localhost:8001", "http://localhost:8002"},
+		servers:       c.Servers,
 		currentServer: 0,
 		mux:           new(sync.RWMutex),
+		protocol:      c.Protocol,
 	}
 
 	http.HandleFunc("/", lb.ServeHTTP)

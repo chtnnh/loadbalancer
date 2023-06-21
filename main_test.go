@@ -8,12 +8,14 @@ import (
 )
 
 func TestRace(t *testing.T) {
-	InitServers()
+	c := ReadConfig()
+	InitServers(c)
 
 	lb := Loadbalancer{
-		servers:       []string{"http://localhost:8001", "http://localhost:8002"},
+		servers:       c.Servers,
 		currentServer: 0,
 		mux:           new(sync.RWMutex),
+		protocol:      c.Protocol,
 	}
 
 	server := httptest.NewServer(http.HandlerFunc(lb.ServeHTTP))

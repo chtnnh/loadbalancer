@@ -1,28 +1,29 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
 )
 
-func InitServers() {
-	s1 := Server{
-		port: 8001,
-		s:    http.NewServeMux(),
+func (lb *Loadbalancer) next() {
+	lb.currentServer = (lb.currentServer + 1) % len(lb.servers)
+}
+
+type Server struct {
+	port int
+	s    *http.ServeMux
+}
+
+func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Helo from " + r.Host + "\n"))
+}
+
+func InitServers(c *Config) {
+	for _, server := range c.Servers {
+		s := Server{
+			port: server.Port,
+			s:    http.NewServeMux(),
+		}
+		go http.ListenAndServe(fmt.Sprintf(":%d", server.Port), s)
 	}
-
-	s2 := Server{
-		port: 8002,
-		s:    http.NewServeMux(),
-	}
-
-	go func() {
-		s1.s.HandleFunc("/", s1.ServeHTTP)
-		log.Fatal(http.ListenAndServe(":8001", s1))
-	}()
-
-	go func() {
-		s2.s.HandleFunc("/", s2.ServeHTTP)
-		log.Fatal(http.ListenAndServe(":8002", s2))
-	}()
 }
