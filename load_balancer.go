@@ -16,6 +16,7 @@ type Loadbalancer struct {
 func (lb *Loadbalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	lb.mux.Lock()
 	defer lb.mux.Unlock()
+	// TODO: replace http.Get with support for all methods
 	res, _ := http.Get(lb.servers[lb.currentServer].Uri)
 	defer lb.next()
 	io.Copy(w, res.Body)

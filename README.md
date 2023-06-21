@@ -58,5 +58,10 @@ To test the load balancer for race conditions:
 go test -race
 ```
 
+## TODO
+1. Support for all methods (currently supports only GET)
+2. Support for dynamic URLs
+3. Dynamic Load Balancing algorithms
+
 ## Author
 Chaitanya Mittal, 2023
