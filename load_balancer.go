@@ -22,10 +22,10 @@ func (lb *Loadbalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	switch method := r.Method; method {
 	case http.MethodGet:
-		res, _ = http.Get(fmt.Sprintf("%s/%s", lb.servers[lb.currentServer].Uri, r.URL.Path))
+		res, _ = http.Get(fmt.Sprintf("%s%s", lb.servers[lb.currentServer].Uri, r.URL.Path))
 	case http.MethodPost:
 		res, _ = http.Post(
-			fmt.Sprintf("%s/%s", lb.servers[lb.currentServer].Uri, r.URL.Path),
+			fmt.Sprintf("%s%s", lb.servers[lb.currentServer].Uri, r.URL.Path),
 			"",
 			r.Body,
 		)
