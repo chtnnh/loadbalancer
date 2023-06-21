@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"sync"
@@ -16,8 +17,22 @@ type Loadbalancer struct {
 func (lb *Loadbalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	lb.mux.Lock()
 	defer lb.mux.Unlock()
-	// TODO: replace http.Get with support for all methods
-	res, _ := http.Get(lb.servers[lb.currentServer].Uri)
+
+	var res *http.Response
+
+	switch method := r.Method; method {
+	case http.MethodGet:
+		res, _ = http.Get(fmt.Sprintf("%s/%s", lb.servers[lb.currentServer].Uri, r.URL.Path))
+	case http.MethodPost:
+		res, _ = http.Post(
+			fmt.Sprintf("%s/%s", lb.servers[lb.currentServer].Uri, r.URL.Path),
+			"",
+			r.Body,
+		)
+	default:
+		panic(fmt.Errorf("method %s not supported", method))
+	}
+
 	defer lb.next()
 	io.Copy(w, res.Body)
 }

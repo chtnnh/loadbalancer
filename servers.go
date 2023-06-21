@@ -11,7 +11,7 @@ type Server struct {
 }
 
 func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Helo from " + r.Host + "\n"))
+	w.Write([]byte("Hello from " + r.Host + " " + r.URL.Path + " " + r.Method + "\n"))
 }
 
 func InitServers(c *Config) {
